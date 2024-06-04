@@ -7,10 +7,10 @@ public class Pet {
     private int age;
     private String breed;
     private String color;
-    private String weight;
+    private double weight;
     private int ownerId;
 
-    public Pet(int petId, String name, String type, int age, String breed, String color, String weight, int ownerId) {
+    public Pet(int petId, String name, String type, int age, String breed, String color, double weight, int ownerId) {
         this.petId = petId;
         this.name = name;
         this.type = type;
@@ -65,11 +65,11 @@ public class Pet {
         this.color = color;
     }
 
-    public String getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
