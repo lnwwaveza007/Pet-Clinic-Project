@@ -2,6 +2,7 @@ package services;
 
 import domain.Appointment;
 import domain.MedicalHistory;
+import domain.Owner;
 import domain.Pet;
 import repository.*;
 
@@ -30,6 +31,16 @@ public class ClinicServices {
     public boolean addPet(String name,String type,int age,String breed, String color, double weight, int ownerId) {
         petRepository.addPet(name, type, age, breed, color, weight, ownerId);
         return true;
+    }
+
+    public Owner getOwner(int idCard) {
+        return ownerRepository.findOwner(idCard);
+    }
+
+    public boolean checkPassword(int idCard,String password) {
+        var owner = ownerRepository.findOwner(idCard);
+        if (owner == null) return false;
+        return owner.getPassword().equals(password);
     }
 
     public boolean changeOwnerPassword(int idCard, String oldPassword, String newPassword) {
