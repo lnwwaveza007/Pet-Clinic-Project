@@ -17,7 +17,7 @@ public class Menu {
         clinicServices = new ClinicServices(ownerRepository, petRepository, appointmentRepository, medHisRepository, vetRepository);
     }
 
-    public void Start() {
+    public void start() {
         while (true) {
             mainMenu();
             System.out.println("Enter your choice: ");
@@ -38,7 +38,7 @@ public class Menu {
                     break;
                 case "5":
                     System.out.println("Exit!");
-                    break;
+                    return;
                 default:
                     System.out.println("Please Enter a Number");
                     break;
@@ -80,6 +80,7 @@ public class Menu {
         System.out.println("Enter your Password: ");
         char[] password = console.readPassword();
         if (clinicServices.checkPassword(Integer.parseInt(idCard), new String(password))) {
+            System.out.println("Login Success!");
             ownerMenu(Integer.parseInt(idCard));
         }
     }
@@ -117,7 +118,7 @@ public class Menu {
             System.out.println("4: View all Owners");
             System.out.println("5: View all Pets");
             System.out.println("6: Check Vet");
-            System.out.println("7: Medical History's");
+            System.out.println("7: Medical History");
             System.out.println("8: Exit");
 
             var value = console.readLine();
@@ -186,7 +187,7 @@ public class Menu {
             System.out.println("1: Show All Pets"); //list pet + enter pet view
             System.out.println("2: Add Pet Data");
             System.out.println("3: View All Appointments"); //update & cancel?
-            System.out.println("4: Medical History's");
+            System.out.println("4: Medical History");
             System.out.println("5: Change Password");
             System.out.println("6: Exit");
 
@@ -197,15 +198,19 @@ public class Menu {
                     if (pet != null) {
                         petView(pet.getPetId());
                     }
+                    break;
                 case "2":
                     addPetData(idCard);
+                    break;
                 case "3":
                     getAllAppointmentsOwner(idCard);
+                    break;
                 case "4":
                     var history = getAllMedicalHistoryByOwner(idCard);
                     if (history != null) {
                         medicalHistoryView(history);
                     }
+                    break;
                 case "5":
                     System.out.println("Enter your old Password: ");
                     String oldPassword = console.readLine();
@@ -216,6 +221,7 @@ public class Menu {
                     } else {
                         System.out.println("Password Not Changed!");
                     }
+                    break;
                 case "6":
                     System.out.println("Exit!");
                     return;
@@ -234,12 +240,12 @@ public class Menu {
             index++;
         }
         System.out.println("Type 0 for exit");
-        System.out.println("Enter number to select pet : ");
+        System.out.println("Enter number to select owner : ");
         int value = Integer.parseInt(console.readLine());
         if (value == 0) {
             return null;
         } else if (value <= index) {
-            return clinicServices.getAllOwners().skip(value - 2).findFirst().get();
+            return clinicServices.getAllOwners().skip(value - 1).findFirst().get();
         } else {
             System.out.println("There is no owner with that number!");
             return null;
@@ -298,15 +304,19 @@ public class Menu {
                     System.out.println("Breed: " + pet.getBreed());
                     System.out.println("Color: " + pet.getColor());
                     System.out.println("Weight: " + pet.getWeight());
+                    break;
                 case "2":
                     getAllAppointmentsPet(petId);
+                    break;
                 case "3":
                     createAppointmentMenu(petId);
+                    break;
                 case "4":
                     var history = getAllHistoryPet(petId);
                     if (history != null) {
                         medicalHistoryView(history);
                     }
+                    break;
                 case "5":
                     System.out.println("Exit!");
                     return;
@@ -328,7 +338,7 @@ public class Menu {
         if (value == 0) {
             return null;
         } else if (value <= index) {
-            return clinicServices.getAllPetByOwner(idCard).skip(value - 2).findFirst().get();
+            return clinicServices.getAllPetByOwner(idCard).skip(value - 1).findFirst().get();
         } else {
             System.out.println("There is no pet with that number!");
             return null;
@@ -379,6 +389,7 @@ public class Menu {
                     System.out.println("Vet ID: " + medicalHistory.getVeterinarianId());
                     System.out.println("Pet ID: " + medicalHistory.getPetId());
                     System.out.println("Description: " + medicalHistory.getDescription());
+                    break;
                 case "2":
                     System.out.println("Exit!");
                     return;
@@ -400,7 +411,7 @@ public class Menu {
         if (value == 0) {
             return null;
         } else if (value <= index) {
-            return clinicServices.getAllMedicalHistoryByPet(petId).skip(value - 2).findFirst().get();
+            return clinicServices.getAllMedicalHistoryByPet(petId).skip(value - 1).findFirst().get();
         } else {
             System.out.println("There is no medical history with that number!");
             return null;
@@ -419,7 +430,7 @@ public class Menu {
         if (value == 0) {
             return null;
         } else if (value <= index) {
-            return clinicServices.getAllMedicalHistoryByOwner(ownerId).skip(value - 2).findFirst().get();
+            return clinicServices.getAllMedicalHistoryByOwner(ownerId).skip(value - 1).findFirst().get();
         } else {
             System.out.println("There is no medical history with that number!");
             return null;
@@ -438,7 +449,7 @@ public class Menu {
         if (value == 0) {
             return null;
         } else if (value <= index) {
-            return clinicServices.getAllMedicalHistoryByVet(vetId).skip(value - 2).findFirst().get();
+            return clinicServices.getAllMedicalHistoryByVet(vetId).skip(value - 1).findFirst().get();
         } else {
             System.out.println("There is no medical history with that number!");
             return null;
@@ -461,6 +472,7 @@ public class Menu {
                     System.out.println("Vet ID: " + appointment.getVeterinarianId());
                     System.out.println("Pet ID: " + appointment.getPetId());
                     System.out.println("Description: " + appointment.getDescription());
+                    break;
                 case "2":
                     clinicServices.deleteAppointment(appointment.getAppointmentId());
                     System.out.println("Appointment Deleted!");
@@ -486,7 +498,7 @@ public class Menu {
         if (value == 0) {
             return;
         } else if (value <= index) {
-            appointmentView(clinicServices.getAllAppointmentByOwner(ownerId).skip(value - 2).findFirst().get());
+            appointmentView(clinicServices.getAllAppointmentByOwner(ownerId).skip(value - 1).findFirst().get());
         } else {
             System.out.println("There is no appointment with that number!");
             return;
@@ -505,7 +517,7 @@ public class Menu {
         if (value == 0) {
             return;
         } else if (value <= index) {
-            appointmentView(clinicServices.getAllAppointmentByPet(petId).skip(value - 2).findFirst().get());
+            appointmentView(clinicServices.getAllAppointmentByPet(petId).skip(value - 1).findFirst().get());
         } else {
             System.out.println("There is no appointment with that number!");
             return;
@@ -524,7 +536,7 @@ public class Menu {
         if (value == 0) {
             return;
         } else if (value <= index) {
-            appointmentView(clinicServices.getAllAppointmentByVet(vetId).skip(value - 2).findFirst().get());
+            appointmentView(clinicServices.getAllAppointmentByVet(vetId).skip(value - 1).findFirst().get());
         } else {
             System.out.println("There is no appointment with that number!");
             return;
@@ -543,7 +555,7 @@ public class Menu {
         if (value == 0) {
             return;
         } else if (value <= index) {
-            appointmentView(clinicServices.getAllAppointments().skip(value - 2).findFirst().get());
+            appointmentView(clinicServices.getAllAppointments().skip(value - 1).findFirst().get());
         } else {
             System.out.println("There is no appointment with that number!");
             return;
@@ -631,7 +643,7 @@ public class Menu {
         if (value == 0) {
             return null;
         } else if (value <= index) {
-            return clinicServices.getAllVets().skip(value - 2).findFirst().get();
+            return clinicServices.getAllVets().skip(value - 1).findFirst().get();
         } else {
             System.out.println("There is no veterinarian with that number!");
             return null;

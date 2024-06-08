@@ -1,6 +1,8 @@
 package domain;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
     private final int petId;
     private String name;
     private String type;

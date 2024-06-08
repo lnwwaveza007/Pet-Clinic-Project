@@ -1,6 +1,7 @@
 package repository.memoryrepo;
 
 import domain.Pet;
+import domain.exceptions.DataNotFound;
 import repository.PetRepository;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.stream.Stream;
 
 public class MemoryPetRepo implements PetRepository {
     private final Map<Integer, Pet> pets = new HashMap<>();
-    private int nextId;
+    private int nextId = 1;
 
     @Override
     public void addPet(String name,String type,int age,String breed, String color, double weight, int ownerId) {
@@ -20,13 +21,19 @@ public class MemoryPetRepo implements PetRepository {
 
     @Override
     public Pet updatePet(Pet pet) {
+        if (!pets.containsKey(pet.getPetId())) {
+            throw new DataNotFound("Pet not found");
+        }
         pets.put(pet.getPetId(), pet);
         return pet;
     }
 
     @Override
     public Pet findPetFromId(int petId) {
-        return pets.get(petId); //throw exception here?
+        if (!pets.containsKey(petId)) {
+            throw new DataNotFound("Pet not found");
+        }
+        return pets.get(petId);
     }
 
     @Override

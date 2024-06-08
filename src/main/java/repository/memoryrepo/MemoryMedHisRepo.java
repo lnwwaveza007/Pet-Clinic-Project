@@ -1,6 +1,7 @@
 package repository.memoryrepo;
 
 import domain.MedicalHistory;
+import domain.exceptions.DataNotFound;
 import repository.MedHisRepository;
 
 import java.util.stream.Stream;
@@ -13,6 +14,9 @@ public class MemoryMedHisRepo implements MedHisRepository {
 
     @Override
     public boolean addMedHis(String date, String description, int petId, int vetId) {
+        if (date == null || description == null) {
+            throw new IllegalArgumentException("Date and description cannot be null");
+        }
         int medicalHistoryId = nextId++;
         MedicalHistory medHis = new MedicalHistory(medicalHistoryId, date, description, petId, vetId);
         medHistories.put(nextId, medHis);
@@ -21,6 +25,9 @@ public class MemoryMedHisRepo implements MedHisRepository {
 
     @Override
     public MedicalHistory getMedHis(int medHisId) {
+        if (!medHistories.containsKey(medHisId)) {
+            throw new DataNotFound("Medical History not found");
+        }
         return medHistories.get(medHisId);
     }
 

@@ -1,6 +1,8 @@
 package domain;
 
-public class Owner {
+import java.io.Serializable;
+
+public class Owner implements Serializable {
 
     private int idCard;
     private String password;

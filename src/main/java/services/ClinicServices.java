@@ -1,6 +1,7 @@
 package services;
 
 import domain.*;
+import domain.exceptions.MissingInformation;
 import repository.*;
 
 import java.util.stream.Stream;
@@ -25,13 +26,18 @@ public class ClinicServices {
         return ownerRepository.getAllOwners();
     }
 
-    public boolean createOwner(int idCard, String password, String name, String address, String phone) {
-        return ownerRepository.addOwner(idCard, password, name, address, phone);
+    public void createOwner(int idCard, String password, String name, String address, String phone) {
+        if (idCard < 0 || password.isEmpty() || name.isEmpty() || address.isEmpty() || phone.isEmpty()) {
+            throw new MissingInformation("Missing Information");
+        }
+        ownerRepository.addOwner(idCard, password, name, address, phone);
     }
 
-    public boolean addPet(String name,String type,int age,String breed, String color, double weight, int ownerId) {
+    public void addPet(String name, String type, int age, String breed, String color, double weight, int ownerId) {
+        if (name.isEmpty() || type.isEmpty() || breed.isEmpty() || color.isEmpty() || weight < 0) {
+            throw new MissingInformation("Missing Information");
+        }
         petRepository.addPet(name, type, age, breed, color, weight, ownerId);
-        return true;
     }
 
     public Owner getOwner(int idCard) {
@@ -45,7 +51,7 @@ public class ClinicServices {
     }
 
     public boolean checkPasswordVet(int idCard,String password) {
-        var vet = vetRepository.findVet(idCard);
+        var vet = vetRepository.getVet(idCard);
         if (vet == null) return false;
         return vet.getPassword().equals(password);
     }
@@ -90,26 +96,31 @@ public class ClinicServices {
     }
 
 
-    public boolean createAppointment(int petId, int vetId, String date, String desc) {
+    public void createAppointment(int petId, int vetId, String date, String desc) {
+        if (date.isEmpty() || desc.isEmpty()) {
+            throw new MissingInformation("Missing Information");
+        }
         appointmentRepository.createAppointment(date, desc, petId, vetId);
-        return true;
     }
 
     public boolean updateAppointment(Appointment appointment) {
         return appointmentRepository.updateAppointment(appointment);
     }
 
-    public boolean deleteAppointment(int appointmentId) {
-        return appointmentRepository.deleteAppointment(appointmentId);
+    public void deleteAppointment(int appointmentId) {
+        appointmentRepository.deleteAppointment(appointmentId);
     }
 
     //Vet Section
-    public boolean createVet(int idCard, String password, String name, String address, String phone) {
-        return vetRepository.addVet(idCard, password, name, address, phone);
+    public void createVet(int idCard, String password, String name, String address, String phone) {
+        if (idCard < 0 || password.isEmpty() || name.isEmpty() || address.isEmpty() || phone.isEmpty()) {
+            throw new MissingInformation("Missing Information");
+        }
+        vetRepository.addVet(idCard, password, name, address, phone);
     }
 
-    public boolean removeVet(int idCard) {
-        return vetRepository.deleteVet(idCard);
+    public void removeVet(int idCard) {
+        vetRepository.deleteVet(idCard);
     }
 
     public Stream<Veterinarian> getAllVets() {
@@ -118,6 +129,9 @@ public class ClinicServices {
 
     //Medical History Section
     public boolean addMedicalHistory(int petId,int vetId, String date, String description) {
+        if (date.isEmpty() || description.isEmpty()) {
+            throw new MissingInformation("Missing Information");
+        }
         medHisRepository.addMedHis(date, description, petId, vetId);
         return true;
     }

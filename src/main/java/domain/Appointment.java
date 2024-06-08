@@ -1,6 +1,8 @@
 package domain;
 
-public class Appointment {
+import java.io.Serializable;
+
+public class Appointment implements Serializable {
     private final int appointmentId;
     private String date;
     private String description;

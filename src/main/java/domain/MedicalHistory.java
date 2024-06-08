@@ -1,6 +1,8 @@
 package domain;
 
-public class MedicalHistory {
+import java.io.Serializable;
+
+public class MedicalHistory implements Serializable {
     private final int medicalHistoryId;
     private String date;
     private String description;

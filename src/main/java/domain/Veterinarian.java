@@ -1,6 +1,8 @@
 package domain;
 
-public class Veterinarian {
+import java.io.Serializable;
+
+public class Veterinarian implements Serializable {
 
         private int idCard;
         private String password;
