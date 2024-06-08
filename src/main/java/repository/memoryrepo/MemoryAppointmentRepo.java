@@ -54,13 +54,4 @@ public class MemoryAppointmentRepo implements AppointmentRepository {
         return appointments.values().stream()
                 .filter(appointment -> appointment.getVeterinarianId() == vetId);
     }
-
-    @Override
-    public Stream<Appointment> getAppointmentsFromOwner(int ownerId) {
-        return appointments.values().stream()
-                .filter(appointment -> {
-                    Pet pet = petRepository.findPetFromId(appointment.getPetId());
-                    return pet != null && pet.getOwnerId() == ownerId;
-                });
-    }
 }

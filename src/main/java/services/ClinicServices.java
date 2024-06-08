@@ -78,7 +78,10 @@ public class ClinicServices {
 
     //Appointment Section
     public Stream<Appointment> getAllAppointmentByOwner(int ownerId) {
-        return appointmentRepository.getAppointmentsFromOwner(ownerId);
+        return appointmentRepository.getAllAppointments().filter(appointment -> {
+            var pet = petRepository.findPetFromId(appointment.getPetId());
+            return pet.getOwnerId() == ownerId;
+        });
     }
 
     public Stream<Appointment> getAllAppointmentByPet(int petId) {

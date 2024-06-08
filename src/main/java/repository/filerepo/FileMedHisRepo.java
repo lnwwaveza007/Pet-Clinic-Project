@@ -12,11 +12,17 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class FileMedHisRepo implements MedHisRepository {
-    private static final String MEDHIS_FILE = "medHistories.dat";
+    private static final String MEDHIS_FILE = "datas/medHistories.dat";
     private Map<Integer, MedicalHistory> medHistories = new HashMap<>();
     private int nextId = 1;
 
     public FileMedHisRepo() {
+        //Check Directory
+        File directory = new File("datas");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         if (new File(MEDHIS_FILE).exists()) {
             // Load data from file
             try (FileInputStream fis = new FileInputStream(MEDHIS_FILE); BufferedInputStream bis = new BufferedInputStream(fis); ObjectInputStream ois = new ObjectInputStream(bis)) {

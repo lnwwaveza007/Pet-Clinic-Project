@@ -12,10 +12,16 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class FileOwnerRepo implements OwnerRepository {
-    private static final String OWNER_FILE = "owners.dat";
+    private static final String OWNER_FILE = "datas/owners.dat";
     private Map<Integer, Owner> owners = new HashMap<>();
 
     public FileOwnerRepo() {
+        //Check Directory
+        File directory = new File("datas");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         if (new File(OWNER_FILE).exists()) {
             // Load data from file
             try (FileInputStream fis = new FileInputStream(OWNER_FILE); BufferedInputStream bis = new BufferedInputStream(fis); ObjectInputStream ois = new ObjectInputStream(bis)) {

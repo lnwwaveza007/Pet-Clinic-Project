@@ -12,5 +12,4 @@ public interface AppointmentRepository {
     public Stream<Appointment> getAllAppointments();
     public Stream<Appointment> getAppointmentsFromPet(int petId);
     public Stream<Appointment> getAppointmentsFromVet(int vetId);
-    public Stream<Appointment> getAppointmentsFromOwner(int ownerId);
 }

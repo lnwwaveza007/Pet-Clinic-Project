@@ -11,11 +11,17 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class FilePetRepo implements PetRepository {
-    private static final String PET_FILE = "pets.dat";
+    private static final String PET_FILE = "datas/pets.dat";
     private Map<Integer, Pet> pets = new HashMap<>();
     private int nextId = 1;
 
     public FilePetRepo() {
+        //Check Directory
+        File directory = new File("datas");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         if (new File(PET_FILE).exists()) {
             // Load data from file
             try (FileInputStream fis = new FileInputStream(PET_FILE); BufferedInputStream bis = new BufferedInputStream(fis); ObjectInputStream ois = new ObjectInputStream(bis)) {

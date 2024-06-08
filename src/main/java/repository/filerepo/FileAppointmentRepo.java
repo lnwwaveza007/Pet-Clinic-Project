@@ -6,17 +6,24 @@ import repository.AppointmentRepository;
 import repository.PetRepository;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class FileAppointmentRepo implements AppointmentRepository {
-    private static final String APPOINTMENT_FILE = "appointments.dat";
+    private static final String APPOINTMENT_FILE = "datas/appointments.dat";
     private Map<Integer, Appointment> appointments = new HashMap<>();
     private int nextId = 1;
-    private PetRepository petRepository;
 
     public FileAppointmentRepo() {
+        //Check Directory
+        File directory = new File("datas");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         if (new File(APPOINTMENT_FILE).exists()) {
             // Load data from file
             try (FileInputStream fis = new FileInputStream(APPOINTMENT_FILE); BufferedInputStream bis = new BufferedInputStream(fis); ObjectInputStream ois = new ObjectInputStream(bis)) {
@@ -87,12 +94,4 @@ public class FileAppointmentRepo implements AppointmentRepository {
                 .filter(appointment -> appointment.getVeterinarianId() == vetId);
     }
 
-    @Override
-    public Stream<Appointment> getAppointmentsFromOwner(int ownerId) {
-        return appointments.values().stream()
-                .filter(appointment -> {
-                    Pet pet = petRepository.findPetFromId(appointment.getPetId());
-                    return pet != null && pet.getOwnerId() == ownerId;
-                });
-    }
 }

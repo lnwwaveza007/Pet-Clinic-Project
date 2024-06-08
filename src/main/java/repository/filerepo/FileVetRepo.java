@@ -11,10 +11,16 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class FileVetRepo implements VetRepository {
-    private static final String VET_FILE = "vets.dat";
+    private static final String VET_FILE = "datas/vets.dat";
     private Map<Integer, Veterinarian> vets = new HashMap<>();
 
     public FileVetRepo() {
+        //Check Directory
+        File directory = new File("datas");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         if (new File(VET_FILE).exists()) {
             // Load data from file
             try (FileInputStream fis = new FileInputStream(VET_FILE); BufferedInputStream bis = new BufferedInputStream(fis);ObjectInputStream ois = new ObjectInputStream(bis)) {

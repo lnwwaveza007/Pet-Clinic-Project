@@ -57,42 +57,47 @@ public class Menu {
 
     //register
     public void register() {
-        System.out.println("Register Menu");
-        System.out.println("Enter your ID Card: ");
-        String idCard = console.readLine();
-        System.out.println("Enter your Password: ");
-        String password = console.readLine();
-        System.out.println("Enter your Name: ");
-        String name = console.readLine();
-        System.out.println("Enter your Address: ");
-        String address = console.readLine();
-        System.out.println("Enter your Phone Number: ");
-        String phone = console.readLine();
-        clinicServices.createOwner(Integer.parseInt(idCard), password, name, address, phone);
-        System.out.println("Register Success!");
+        try {
+            System.out.println("Register Menu");
+            System.out.println("Enter your ID Card: ");
+            int idCard = scanner.nextInt();
+            System.out.println("Enter your Password: ");
+            String password = console.readLine();
+            System.out.println("Enter your Name: ");
+            String name = console.readLine();
+            System.out.println("Enter your Address: ");
+            String address = console.readLine();
+            System.out.println("Enter your Phone Number: ");
+            String phone = console.readLine();
+            clinicServices.createOwner(idCard, password, name, address, phone);
+            System.out.println("Register Success!");
+        } catch (Exception e) {
+            System.out.println("Register Failed!");
+            return;
+        }
     }
 
     //login
     public void loginOwner() {
         System.out.println("Enter your ID Card: ");
-        String idCard = console.readLine();
+        int idCard = scanner.nextInt();
 
         System.out.println("Enter your Password: ");
         char[] password = console.readPassword();
-        if (clinicServices.checkPassword(Integer.parseInt(idCard), new String(password))) {
+        if (clinicServices.checkPassword(idCard, new String(password))) {
             System.out.println("Login Success!");
-            ownerMenu(Integer.parseInt(idCard));
+            ownerMenu(idCard);
         }
     }
 
     public void loginVet() {
         System.out.println("Enter your ID Card: ");
-        String idCard = console.readLine();
+        int idCard = scanner.nextInt();
 
         System.out.println("Enter your Password: ");
         char[] password = console.readPassword();
-        if (clinicServices.checkPasswordVet(Integer.parseInt(idCard), new String(password))) {
-            vetMenu(Integer.parseInt(idCard));
+        if (clinicServices.checkPasswordVet(idCard, new String(password))) {
+            vetMenu(idCard);
         }
     }
 
@@ -241,7 +246,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select owner : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return null;
         } else if (value <= index) {
@@ -334,7 +339,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select pet : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return null;
         } else if (value <= index) {
@@ -407,7 +412,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select medical history : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return null;
         } else if (value <= index) {
@@ -426,7 +431,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select medical history : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return null;
         } else if (value <= index) {
@@ -445,7 +450,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select medical history : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return null;
         } else if (value <= index) {
@@ -494,7 +499,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return;
         } else if (value <= index) {
@@ -513,7 +518,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return;
         } else if (value <= index) {
@@ -532,7 +537,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return;
         } else if (value <= index) {
@@ -551,7 +556,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return;
         } else if (value <= index) {
@@ -563,64 +568,86 @@ public class Menu {
     }
 
     public void createAppointmentMenu(int petId) {
-        var vetId = listVet().getIdCard();
-        System.out.println("Enter date: ");
-        System.out.println("Format: dd/mm/yyyy hh:mm");
-        System.out.println("Example: 01/01/2021 10:00");
-        String date = console.readLine();
-        System.out.println("Enter Description: ");
-        String desc = console.readLine();
-        clinicServices.createAppointment(petId, vetId, date, desc);
-        System.out.println("Appointment Created!");
+        try {
+            var vetId = listVet().getIdCard();
+            System.out.println("Enter date: ");
+            System.out.println("Format: dd/mm/yyyy hh:mm");
+            System.out.println("Example: 01/01/2021 10:00");
+            String date = console.readLine();
+            System.out.println("Enter Description: ");
+            String desc = console.readLine();
+            clinicServices.createAppointment(petId, vetId, date, desc);
+            System.out.println("Appointment Created!");
+        }
+        catch (Exception e) {
+            System.out.println("Appointment Failed!");
+            return;
+        }
     }
 
     public void createAppointmentMenuVet(int vetId) {
-        var owner = listAllOwner();
-        var pet = listPetbyOwner(owner.getIdCard());
-        var petId = pet.getPetId();
-        System.out.println("Enter date: ");
-        System.out.println("Format: dd/mm/yyyy hh:mm");
-        System.out.println("Example: 01/01/2021 10:00");
-        String date = console.readLine();
-        System.out.println("Enter Description: ");
-        String desc = console.readLine();
-        clinicServices.createAppointment(petId, vetId, date, desc);
-        System.out.println("Appointment Created!");
+        try {
+            var owner = listAllOwner();
+            var pet = listPetbyOwner(owner.getIdCard());
+            var petId = pet.getPetId();
+            System.out.println("Enter date: ");
+            System.out.println("Format: dd/mm/yyyy hh:mm");
+            System.out.println("Example: 01/01/2021 10:00");
+            String date = console.readLine();
+            System.out.println("Enter Description: ");
+            String desc = console.readLine();
+            clinicServices.createAppointment(petId, vetId, date, desc);
+            System.out.println("Appointment Created!");
+        }
+        catch (Exception e) {
+            System.out.println("Appointment Failed!");
+            return;
+        }
     }
 
     //Pet
 
     public void addPetData(int ownerId) {
-        System.out.println("Enter your Pet Name: ");
-        String name = console.readLine();
-        System.out.println("Enter your Pet Type: ");
-        String type = console.readLine();
-        System.out.println("Enter your Pet Age: ");
-        String age = console.readLine();
-        System.out.println("Enter your Pet Breed: ");
-        String breed = console.readLine();
-        System.out.println("Enter your Pet Color: ");
-        String color = console.readLine();
-        System.out.println("Enter your Pet Weight: ");
-        String weight = console.readLine();
-        clinicServices.addPet(name, type, Integer.parseInt(age), breed, color, Integer.parseInt(weight), ownerId);
-        System.out.println(name + "'s Added!");
+        try {
+            System.out.println("Enter your Pet Name: ");
+            String name = console.readLine();
+            System.out.println("Enter your Pet Type: ");
+            String type = console.readLine();
+            System.out.println("Enter your Pet Age: ");
+            int age = scanner.nextInt();
+            System.out.println("Enter your Pet Breed: ");
+            String breed = console.readLine();
+            System.out.println("Enter your Pet Color: ");
+            String color = console.readLine();
+            System.out.println("Enter your Pet Weight: ");
+            double weight = scanner.nextDouble();
+            clinicServices.addPet(name, type, age, breed, color, weight, ownerId);
+            System.out.println(name + "'s Added!");
+        } catch (Exception e) {
+            System.out.println("Pet Data Failed!");
+            return;
+        }
     }
 
     //Veterinarian
     public void createVetMenu() {
-        System.out.println("Enter ID Card: ");
-        String idCard = console.readLine();
-        System.out.println("Enter Password: ");
-        String password = console.readLine();
-        System.out.println("Enter Name: ");
-        String name = console.readLine();
-        System.out.println("Enter Address: ");
-        String address = console.readLine();
-        System.out.println("Enter Phone Number: ");
-        String phone = console.readLine();
-        clinicServices.createVet(Integer.parseInt(idCard), password, name, address, phone);
-        System.out.println(name + " Added!");
+        try {
+            System.out.println("Enter ID Card: ");
+            int idCard = scanner.nextInt();
+            System.out.println("Enter Password: ");
+            String password = console.readLine();
+            System.out.println("Enter Name: ");
+            String name = console.readLine();
+            System.out.println("Enter Address: ");
+            String address = console.readLine();
+            System.out.println("Enter Phone Number: ");
+            String phone = console.readLine();
+            clinicServices.createVet(idCard, password, name, address, phone);
+            System.out.println(name + " Added!");
+        } catch (Exception e) {
+            System.out.println("Vet Data Failed!");
+            return;
+        }
     }
 
     public void removeVetMenu() {
@@ -639,7 +666,7 @@ public class Menu {
         }
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select Veterinarian : ");
-        int value = Integer.parseInt(console.readLine());
+        int value = scanner.nextInt();
         if (value == 0) {
             return null;
         } else if (value <= index) {
