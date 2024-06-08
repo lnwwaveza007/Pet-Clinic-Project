@@ -1,9 +1,6 @@
 package services;
 
-import domain.Appointment;
-import domain.MedicalHistory;
-import domain.Owner;
-import domain.Pet;
+import domain.*;
 import repository.*;
 
 import java.util.stream.Stream;
@@ -24,6 +21,10 @@ public class ClinicServices {
     }
 
     //Owner Section
+    public Stream<Owner> getAllOwners() {
+        return ownerRepository.getAllOwners();
+    }
+
     public boolean createOwner(int idCard, String password, String name, String address, String phone) {
         return ownerRepository.addOwner(idCard, password, name, address, phone);
     }
@@ -41,6 +42,12 @@ public class ClinicServices {
         var owner = ownerRepository.findOwner(idCard);
         if (owner == null) return false;
         return owner.getPassword().equals(password);
+    }
+
+    public boolean checkPasswordVet(int idCard,String password) {
+        var vet = vetRepository.findVet(idCard);
+        if (vet == null) return false;
+        return vet.getPassword().equals(password);
     }
 
     public boolean changeOwnerPassword(int idCard, String oldPassword, String newPassword) {
@@ -103,6 +110,10 @@ public class ClinicServices {
 
     public boolean removeVet(int idCard) {
         return vetRepository.deleteVet(idCard);
+    }
+
+    public Stream<Veterinarian> getAllVets() {
+        return vetRepository.getAllVets();
     }
 
     //Medical History Section
