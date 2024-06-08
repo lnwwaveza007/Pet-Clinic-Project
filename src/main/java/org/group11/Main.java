@@ -1,6 +1,7 @@
 package org.group11;
 
 import repository.filerepo.*;
+import repository.jdbcrepo.*;
 import repository.memoryrepo.*;
 import ui.Menu;
 
@@ -19,6 +20,15 @@ public class Main {
         switch (value) {
             case "1" -> new Menu(new MemoryOwnerRepo(),new MemoryPetRepo(), new MemoryAppointmentRepo(), new MemoryMedHisRepo(), new MemoryVetRepo()).start();
             case "2" -> new Menu(new FileOwnerRepo(),new FilePetRepo(), new FileAppointmentRepo(), new FileMedHisRepo(), new FileVetRepo()).start();
+            case "3" -> {
+                try {
+                    new Menu(new JdbcOwnerRepo(), new JdbcPetRepo(), new JdbcAppointmentRepo(), new JdbcMedHisRepo(), new JdbcVetRepo()).start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Server is now offline. . .");
+                }
+            }
         }
+//        new JdbcOwnerRepo().addOwner(123456789,"1234","Test","Test","Test");
     }
 }

@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 public class MemoryAppointmentRepo implements AppointmentRepository {
     private Map<Integer, Appointment> appointments = new HashMap<>();
     private int nextId = 1;
-    private PetRepository petRepository;
 
     @Override
     public boolean createAppointment(String date, String description, int petId, int vetId) {
