@@ -84,9 +84,13 @@ public class Menu {
 
         System.out.println("Enter your Password: ");
         char[] password = console.readPassword();
-        if (clinicServices.checkPassword(idCard, new String(password))) {
-            System.out.println("Login Success!");
-            ownerMenu(idCard);
+        try {
+            if (clinicServices.checkPassword(idCard, new String(password))) {
+                System.out.println("Login Success!");
+                ownerMenu(idCard);
+            }
+        } catch (Exception e) {
+            System.out.println("There is no Owner with that ID Card.");
         }
     }
 
@@ -96,8 +100,12 @@ public class Menu {
 
         System.out.println("Enter your Password: ");
         char[] password = console.readPassword();
-        if (clinicServices.checkPasswordVet(idCard, new String(password))) {
-            vetMenu(idCard);
+        try {
+            if (clinicServices.checkPasswordVet(idCard, new String(password))) {
+                vetMenu(idCard);
+            }
+        } catch (Exception e) {
+            System.out.println("There is no Veterinarian with that ID Card.");
         }
     }
 
