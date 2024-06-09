@@ -38,27 +38,27 @@ public class Menu {
                     System.out.println("Exit");
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
                     break;
             }
         }
     }
 
     public void mainMenu() {
-        System.out.println("┌─── Welcome to Main Menu ───┐");
+        System.out.println("[--- Welcome to Main Menu ---]");
         System.out.println("1: Admin Menu");
         System.out.println("2: Owner's Menu");
         System.out.println("3: Register Menu");
         System.out.println("4: Vet Menu");
         System.out.println("5: Exit");
-        System.out.println("└────────────────────────────┘");
+        System.out.println("[-----------------------------]");
         System.out.println("Enter your choice: ");
     }
 
     //register
     public void register() {
         try {
-            System.out.println("┌─── Register Menu ───┐");
+            System.out.println("[--- Register Menu ---]");
             System.out.println("Enter your ID Card: ");
             int idCard = scanner.nextInt();
             System.out.println("Enter your Password: ");
@@ -70,16 +70,16 @@ public class Menu {
             System.out.println("Enter your Phone Number: ");
             String phone = console.readLine();
             clinicServices.createOwner(idCard, password, name, address, phone);
-            System.out.println("└─── Register Success! ───┘");
+            System.out.println("[--- Register Success! ---]");
         } catch (Exception e) {
-            System.out.println("└─── Register Failed! ───┘");
+            System.out.println("[--- Register Failed! ---]");
             return;
         }
     }
 
     //login
     public void loginOwner() {
-        System.out.println("┌─── Login Menu ───┐");
+        System.out.println("[--- Login Menu ---]");
         System.out.println("Enter your ID Card: ");
         int idCard = scanner.nextInt();
 
@@ -87,17 +87,17 @@ public class Menu {
         char[] password = console.readPassword();
         try {
             if (clinicServices.checkPassword(idCard, new String(password))) {
-                System.out.println("└─── Login Success! ───┘");
+                System.out.println("[--- Login Success! ---]");
                 ownerMenu(idCard);
             }
         } catch (Exception e) {
             System.out.println("There is no Owner with that ID Card.");
-            System.out.println("└─── Login Failed! ───┘");
+            System.out.println("[--- Login Failed! ---]");
         }
     }
 
     public void loginVet() {
-        System.out.println("┌─── Login Menu ───┐");
+        System.out.println("[--- Login Menu ---]");
         System.out.println("Enter your ID Card: ");
         int idCard = scanner.nextInt();
 
@@ -105,25 +105,25 @@ public class Menu {
         char[] password = console.readPassword();
         try {
             if (clinicServices.checkPasswordVet(idCard, new String(password))) {
-                System.out.println("└─── Login Success! ───┘");
+                System.out.println("[--- Login Success! ---]");
                 vetMenu(idCard);
             }
         } catch (Exception e) {
             System.out.println("There is no Veterinarian with that ID Card.");
-            System.out.println("└─── Login Failed! ───┘");
+            System.out.println("[--- Login Failed! ---]");
         }
     }
 
     public void loginAdmin() {
-        System.out.println("┌─── Login Menu ───┐");
+        System.out.println("[--- Login Menu ---]");
         System.out.println("Enter Password: ");
         String password = new String(console.readPassword());
 
         if (password.equals("password")) {
-            System.out.println("└─── Login Success! ───┘");
+            System.out.println("[--- Login Success! ---]");
             adminMenu();
         } else {
-            System.out.println("└─── Login Failed! ───┘");
+            System.out.println("[--- Login Failed! ---]");
         }
     }
 
@@ -131,7 +131,7 @@ public class Menu {
     //menu
     public void adminMenu() {
         while (true) {
-            System.out.println("┌─── Admin Menu ───┐");
+            System.out.println("[--- Admin Menu ---]");
             System.out.println("1: Create Vet");
             System.out.println("2: Remove Vet");
             System.out.println("3: View all Appointments");
@@ -140,7 +140,7 @@ public class Menu {
             System.out.println("6: Check Vet");
             System.out.println("7: Medical History");
             System.out.println("8: Exit");
-            System.out.println("└──────────────────┘");
+            System.out.println("[-----------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
@@ -157,12 +157,12 @@ public class Menu {
                 case "4":
                     var owner = listAllOwner();
                     if (owner != null) {
-                        System.out.println("┌─── Owner Description ───┐");
+                        System.out.println("[--- Owner Description ---]");
                         System.out.println("Name: " + owner.getName());
                         System.out.println("ID Card: " + owner.getIdCard());
                         System.out.println("Address: " + owner.getAddress());
                         System.out.println("Phone: " + owner.getPhone());
-                        System.out.println("└────────────────────────┘");
+                        System.out.println("[-------------------------]");
                     }
                     break;
                 case "5":
@@ -170,26 +170,26 @@ public class Menu {
                     if (owner2 != null) {
                         var pet = listPetbyOwner(owner2.getIdCard());
                         if (pet != null) {
-                            System.out.println("┌─── Pet Description ───┐");
+                            System.out.println("[--- Pet Description ---]");
                             System.out.println("Name: " + pet.getName());
                             System.out.println("Type: " + pet.getType());
                             System.out.println("Age: " + pet.getAge());
                             System.out.println("Breed: " + pet.getBreed());
                             System.out.println("Color: " + pet.getColor());
                             System.out.println("Weight: " + pet.getWeight());
-                            System.out.println("└──────────────────────┘");
+                            System.out.println("[-------------------------]");
                         }
                     }
                     break;
                 case "6":
                     var vet = listVet();
                     if (vet != null) {
-                        System.out.println("┌─── Vet Description ───┐");
+                        System.out.println("[--- Vet Description ---]");
                         System.out.println("Name: " + vet.getName());
                         System.out.println("ID Card: " + vet.getIdCard());
                         System.out.println("Address: " + vet.getAddress());
                         System.out.println("Phone: " + vet.getPhone());
-                        System.out.println("└──────────────────────┘");
+                        System.out.println("[-------------------------]");
                     }
                     break;
                 case "7":
@@ -198,7 +198,7 @@ public class Menu {
                 case "8":
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
                     break;
             }
         }
@@ -207,14 +207,14 @@ public class Menu {
 
     public void ownerMenu(int idCard) {
         while (true) {
-            System.out.println("┌─── Owner Menu ───┐");
+            System.out.println("[--- Owner Menu ---]");
             System.out.println("1: Show All Pets"); //list pet + enter pet view
             System.out.println("2: Add Pet Data");
             System.out.println("3: View All Appointments"); //update & cancel?
             System.out.println("4: Medical History");
             System.out.println("5: Change Password");
             System.out.println("6: Exit");
-            System.out.println("└──────────────────┘");
+            System.out.println("[-----------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
@@ -238,22 +238,22 @@ public class Menu {
                     }
                     break;
                 case "5":
-                    System.out.println("┌─── Change Password ───┐");
+                    System.out.println("[--- Change Password ---]");
                     System.out.println("Enter your old Password: ");
                     String oldPassword = console.readLine();
                     System.out.println("Enter your new Password: ");
                     String newPassword = console.readLine();
                     if (clinicServices.changeOwnerPassword(idCard, oldPassword, newPassword)) {
-                        System.out.println("└── Password changed ──┘");
+                        System.out.println("[--- Password changed ---]");
                     } else {
-                        System.out.println("└── Password not changed ──┘");
+                        System.out.println("[--- Password not changed ---]");
                     }
                     break;
                 case "6":
                     
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
                     break;
             }
         }
@@ -261,13 +261,13 @@ public class Menu {
     }
 
     public Owner listAllOwner() {
-        System.out.println("┌─── Owner List ───┐");
+        System.out.println("[--- Owner List ---]");
         int index = 1;
         for (Owner o : (Iterable<Owner>) clinicServices.getAllOwners()::iterator) {
             System.out.println(index + ". " + o.getName() + " (" + o.getIdCard() + ")");
             index++;
         }
-        System.out.println("└──────────────────┘");
+        System.out.println("[-----------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select owner : ");
         int value = scanner.nextInt();
@@ -283,12 +283,12 @@ public class Menu {
 
     public void vetMenu(int vetId) {
         while (true) {
-            System.out.println("┌─── Vet Menu! ───┐");
+            System.out.println("[--- Vet Menu ---]");
             System.out.println("1: Create Appointment");
             System.out.println("2: View Appointments");
             System.out.println("3: Medical History");
             System.out.println("4: Exit");
-            System.out.println("└──────────────────┘");
+            System.out.println("[-----------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
@@ -309,7 +309,7 @@ public class Menu {
                     
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
             }
         }
 
@@ -317,26 +317,27 @@ public class Menu {
 
     public void petView(int petId) {
         while (true) {
-            System.out.println("┌─── Pet Menu ───┐");
+            System.out.println("[--- Pet Menu ---]");
             System.out.println("1: Check Status");
             System.out.println("2: View Appointments");
             System.out.println("3: Create Appointment");
             System.out.println("4: Medical History");
             System.out.println("5: Exit");
-            System.out.println("└──────────────────┘");
+            System.out.println("[-----------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
             switch (value) {
                 case "1":
                     Pet pet = clinicServices.getPetById(petId);
-                    System.out.println("Pet Status: ");
+                    System.out.println("[--- Pet Status ---]");
                     System.out.println("Name: " + pet.getName());
                     System.out.println("Type: " + pet.getType());
                     System.out.println("Age: " + pet.getAge());
                     System.out.println("Breed: " + pet.getBreed());
                     System.out.println("Color: " + pet.getColor());
                     System.out.println("Weight: " + pet.getWeight());
+                    System.out.println("[-----------------]");
                     break;
                 case "2":
                     getAllAppointmentsPet(petId);
@@ -354,19 +355,19 @@ public class Menu {
                     
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
             }
         }
     }
 
     public Pet listPetbyOwner(int idCard) {
-        System.out.println("┌─── Pet List ───┐");
+        System.out.println("[--- Pet List ---]");
         int index = 1;
         for (Pet p : (Iterable<Pet>) clinicServices.getAllPetByOwner(idCard)::iterator) {
             System.out.println(index + ". " + p.getName() + " (" + p.getPetId() + ")");
             index++;
         }
-        System.out.println("└──────────────────┘");
+        System.out.println("[-----------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select pet : ");
         int value = scanner.nextInt();
@@ -382,12 +383,12 @@ public class Menu {
 
     //medical history
     public void adminMedicalHistory() {
-        System.out.println("┌─── Medical History ───┐");
+        System.out.println("[--- Medical History Menu ---]");
         System.out.println("1: View Medical History From Owner");
         System.out.println("2: View Medical History From Pet");
         System.out.println("3: View Medical History From Vet");
         System.out.println("4: Exit");
-        System.out.println("└──────────────────┘");
+        System.out.println("[-------------------------------]");
 
         var value = console.readLine();
         switch (value) {
@@ -407,44 +408,45 @@ public class Menu {
                 
                 return;
             default:
-                System.out.println("── Please Enter a Number ──");
+                System.out.println("-- Please Enter a Number --");
         }
     }
 
     public void medicalHistoryView(MedicalHistory medicalHistory) {
         while (true) {
-            System.out.println("┌─── Medical History Menu ───┐");
+            System.out.println("[--- Medical History Menu ---]");
             System.out.println("1: Medical History's Detail");
             System.out.println("2: Exit");
-            System.out.println("└────────────────────────────┘");
+            System.out.println("[-----------------------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
             switch (value) {
                 case "1":
-                    System.out.println("Medical History Detail: ");
+                    System.out.println("[--- Medical History Detail ---]");
                     System.out.println("Date: " + medicalHistory.getDate());
                     System.out.println("Vet ID: " + medicalHistory.getVeterinarianId());
                     System.out.println("Pet ID: " + medicalHistory.getPetId());
                     System.out.println("Description: " + medicalHistory.getDescription());
+                    System.out.println("[-----------------------------]");
                     break;
                 case "2":
                     
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
             }
         }
     }
 
     public MedicalHistory getAllHistoryPet(int petId) {
-        System.out.println("┌─── Medical History List ───┐");
+        System.out.println("[--- Medical History List ---]");
         int index = 1;
         for (MedicalHistory m : (Iterable<MedicalHistory>) clinicServices.getAllMedicalHistoryByPet(petId)::iterator) {
             System.out.println(index + ". " + m.getDate() + " (" + m.getMedicalHistoryId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────────┘");
+        System.out.println("[-----------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select medical history : ");
         int value = scanner.nextInt();
@@ -459,13 +461,13 @@ public class Menu {
     }
 
     public MedicalHistory getAllMedicalHistoryByOwner(int ownerId) {
-        System.out.println("┌─── Medical History List ───┐");
+        System.out.println("[--- Medical History List ---]");
         int index = 1;
         for (MedicalHistory m : (Iterable<MedicalHistory>) clinicServices.getAllMedicalHistoryByOwner(ownerId)::iterator) {
             System.out.println(index + ". " + m.getDate() + " (" + m.getMedicalHistoryId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────────┘");
+        System.out.println("[-----------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select medical history : ");
         int value = scanner.nextInt();
@@ -480,13 +482,13 @@ public class Menu {
     }
 
     public MedicalHistory getAllMedicalHistoryByVet(int vetId) {
-        System.out.println("┌─── Medical History List ───┐");
+        System.out.println("[--- Medical History List ---]");
         int index = 1;
         for (MedicalHistory m : (Iterable<MedicalHistory>) clinicServices.getAllMedicalHistoryByVet(vetId)::iterator) {
             System.out.println(index + ". " + m.getDate() + " (" + m.getMedicalHistoryId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────────┘");
+        System.out.println("[-----------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select medical history : ");
         int value = scanner.nextInt();
@@ -503,82 +505,82 @@ public class Menu {
     //Appointment
     public void appointmentView(Appointment appointment) {
         while (true) {
-            System.out.println("┌─── Appointment Menu ───┐");
+            System.out.println("[--- Appointment Menu ---]");
             System.out.println("1: Appointment's Detail");
             System.out.println("2: Cancel Appointment");
             System.out.println("3: Exit");
-            System.out.println("└────────────────────────┘");
+            System.out.println("[-------------------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
             switch (value) {
                 case "1":
-                    System.out.println("┌─── Appointment Detail ───┐");
+                    System.out.println("[--- Appointment Detail ---]");
                     System.out.println("Date: " + appointment.getDate());
                     System.out.println("Vet ID: " + appointment.getVeterinarianId());
                     System.out.println("Pet ID: " + appointment.getPetId());
                     System.out.println("Description: " + appointment.getDescription());
-                    System.out.println("└──────────────────────────┘");
+                    System.out.println("[-------------------------]");
                     break;
                 case "2":
                     clinicServices.deleteAppointment(appointment.getAppointmentId());
-                    System.out.println("── Appointment Deleted! ──");
+                    System.out.println("--- Appointment Deleted! ---");
                     return;
                 case "3":
                     return;
                 default:
-                    System.out.println("── ── Please Enter a Number ── ──");
+                    System.out.println("-- Please Enter a Number --");
             }
         }
     }
 
     public void appointmentViewVet(Appointment appointment) {
         while (true) {
-            System.out.println("┌─── Appointment Menu ───┐");
+            System.out.println("[--- Appointment Menu ---]");
             System.out.println("1: Appointment's Detail");
             System.out.println("2: Cancel Appointment");
             System.out.println("3: Complete Appointment");
             System.out.println("4: Exit");
-            System.out.println("└────────────────────────┘");
+            System.out.println("[-------------------------]");
             System.out.println("Enter your choice: ");
 
             var value = console.readLine();
             switch (value) {
                 case "1":
-                    System.out.println("┌─── Appointment Detail ───┐");
+                    System.out.println("[--- Appointment Detail ---]");
                     System.out.println("Date: " + appointment.getDate());
                     System.out.println("Vet ID: " + appointment.getVeterinarianId());
                     System.out.println("Pet ID: " + appointment.getPetId());
                     System.out.println("Description: " + appointment.getDescription());
-                    System.out.println("└──────────────────────────┘");
+                    System.out.println("[-------------------------]");
                     break;
                 case "2":
                     clinicServices.deleteAppointment(appointment.getAppointmentId());
-                    System.out.println("── Appointment Deleted! ──");
+                    System.out.println("-- Appointment Deleted! --");
                     return;
                 case "3":
-                    System.out.println("┌─── Enter Medical History Description ───┐");
+                    System.out.println("[--- Enter Medical History Description ---]");
                     String desc = console.readLine();
                     clinicServices.addMedicalHistory(appointment.getPetId(), appointment.getVeterinarianId(), appointment.getDate(), desc);
-                    System.out.println("└─── Appointment Completed! ───┘");
+                    System.out.println("[--- Appointment Completed! ---]");
                     return;
                 case "4":
                     
                     return;
                 default:
-                    System.out.println("── Please Enter a Number ──");
+                    System.out.println("-- Please Enter a Number --");
             }
         }
     }
 
     public void getAllAppointmentsOwner(int ownerId) {
-        System.out.println("┌─── Appointment List ───┐");
+        System.out.println("[--- Appointment List ---]");
         int index = 1;
         for (Appointment a : (Iterable<Appointment>) clinicServices.getAllAppointmentByOwner(ownerId)::iterator) {
             System.out.println(index + ". " + clinicServices.getPetById(a.getPetId()).getName() + " " + a.getDate() + " (" + a.getAppointmentId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────┘");
+        System.out.println("[-------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
         int value = scanner.nextInt();
@@ -593,13 +595,13 @@ public class Menu {
     }
 
     public void getAllAppointmentsPet(int petId) {
-        System.out.println("┌─── Appointment List ───┐");
+        System.out.println("[--- Appointment List ---]");
         int index = 1;
         for (Appointment a : (Iterable<Appointment>) clinicServices.getAllAppointmentByPet(petId)::iterator) {
             System.out.println(index + ". " + a.getDate() + " (" + a.getAppointmentId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────┘");
+        System.out.println("[-------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
         int value = scanner.nextInt();
@@ -614,13 +616,13 @@ public class Menu {
     }
 
     public void getAllAppointmentsVet(int vetId) {
-        System.out.println("┌─── Appointment List ───┐");
+        System.out.println("[--- Appointment List ---]");
         int index = 1;
         for (Appointment a : (Iterable<Appointment>) clinicServices.getAllAppointmentByVet(vetId)::iterator) {
             System.out.println(index + ". " + a.getDate() + " (" + a.getAppointmentId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────┘");
+        System.out.println("[-------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
         int value = scanner.nextInt();
@@ -635,13 +637,13 @@ public class Menu {
     }
 
     public void getAllAppointments() {
-        System.out.println("┌─── Appointment List ───┐");
+        System.out.println("[--- Appointment List ---]");
         int index = 1;
         for (Appointment a : (Iterable<Appointment>) clinicServices.getAllAppointments()::iterator) {
             System.out.println(index + ". " + a.getDate() + " (" + a.getAppointmentId() + ")");
             index++;
         }
-        System.out.println("└────────────────────────┘");
+        System.out.println("[-------------------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select appointment : ");
         int value = scanner.nextInt();
@@ -657,7 +659,7 @@ public class Menu {
 
     public void createAppointmentMenu(int petId) {
         try {
-            System.out.println("┌─── Create Appointment ───┐");
+            System.out.println("[--- Create Appointment ---]");
             var vetId = listVet().getIdCard();
             System.out.println("Enter date: ");
             System.out.println("Format: dd/mm/yyyy hh:mm");
@@ -666,17 +668,17 @@ public class Menu {
             System.out.println("Enter Description: ");
             String desc = console.readLine();
             clinicServices.createAppointment(petId, vetId, date, desc);
-            System.out.println("└── Appointment Created! ──┘");
+            System.out.println("[--- Appointment Created! ---]");
         }
         catch (Exception e) {
-            System.out.println("└── Appointment Failed! ──┘");
+            System.out.println("[--- Appointment Failed! ---]");
             return;
         }
     }
 
     public void createAppointmentMenuVet(int vetId) {
         try {
-            System.out.println("┌─── Create Appointment ───┐");
+            System.out.println("[--- Create Appointment ---]");
             var owner = listAllOwner();
             var pet = listPetbyOwner(owner.getIdCard());
             var petId = pet.getPetId();
@@ -687,10 +689,10 @@ public class Menu {
             System.out.println("Enter Description: ");
             String desc = console.readLine();
             clinicServices.createAppointment(petId, vetId, date, desc);
-            System.out.println("└── Appointment Created! ──┘");
+            System.out.println("[--- Appointment Created! ---]");
         }
         catch (Exception e) {
-            System.out.println("└── Appointment Failed! ──┘");
+            System.out.println("[--- Appointment Failed! ---]");
             return;
         }
     }
@@ -699,7 +701,7 @@ public class Menu {
 
     public void addPetData(int ownerId) {
         try {
-            System.out.println("┌─── Add Pet Data ───┐");
+            System.out.println("[--- Add Pet Data ---]");
             System.out.println("Enter your Pet Name: ");
             String name = console.readLine();
             System.out.println("Enter your Pet Type: ");
@@ -713,9 +715,9 @@ public class Menu {
             System.out.println("Enter your Pet Weight: ");
             double weight = scanner.nextDouble();
             clinicServices.addPet(name, type, age, breed, color, weight, ownerId);
-            System.out.println("└── Pet Added! ──┘");
+            System.out.println("[--- Pet Added! ---]");
         } catch (Exception e) {
-            System.out.println("└── Pet Failed! ──┘");
+            System.out.println("[--- Pet Failed! ---]");
             return;
         }
     }
@@ -723,7 +725,7 @@ public class Menu {
     //Veterinarian
     public void createVetMenu() {
         try {
-            System.out.println("┌─── Create Vet ───┐");
+            System.out.println("[--- Create Vet ---]");
             System.out.println("Enter ID Card: ");
             int idCard = scanner.nextInt();
             System.out.println("Enter Password: ");
@@ -735,30 +737,30 @@ public class Menu {
             System.out.println("Enter Phone Number: ");
             String phone = console.readLine();
             clinicServices.createVet(idCard, password, name, address, phone);
-            System.out.println("└── Vet Created! ──┘");
+            System.out.println("[--- Vet Created! ---]");
         } catch (Exception e) {
-            System.out.println("└── Vet Failed! ──┘");
+            System.out.println("[--- Vet Failed! ---]");
             return;
         }
     }
 
     public void removeVetMenu() {
-        System.out.println("┌─── Remove Vet ───┐");
+        System.out.println("[--- Remove Vet ---]");
         var vet = listVet();
         if (vet != null) {
             clinicServices.removeVet(vet.getIdCard());
-            System.out.println("└── Vet Removed! ──┘");
+            System.out.println("[--- Vet Removed! ---]");
         }
     }
 
     public Veterinarian listVet() {
-        System.out.println("┌─── Vet List ───┐");
+        System.out.println("[--- Vet List ---]");
         int index = 1;
         for (Veterinarian p : (Iterable<Veterinarian>) clinicServices.getAllVets()::iterator) {
             System.out.println(index + ". " + p.getName() + " (" + p.getPhone() + ")");
             index++;
         }
-        System.out.println("└──────────────────┘");
+        System.out.println("[-----------------]");
         System.out.println("Type 0 for exit");
         System.out.println("Enter number to select Veterinarian : ");
         int value = scanner.nextInt();
