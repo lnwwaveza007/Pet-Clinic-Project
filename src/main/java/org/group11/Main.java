@@ -25,7 +25,6 @@ public class Main {
                 try {
                     new Menu(new JdbcOwnerRepo(), new JdbcPetRepo(), new JdbcAppointmentRepo(), new JdbcMedHisRepo(), new JdbcVetRepo()).start();
                 } catch (Exception e) {
-                    e.printStackTrace();
                     System.out.println("Server is now offline. . .");
                 }
             }
