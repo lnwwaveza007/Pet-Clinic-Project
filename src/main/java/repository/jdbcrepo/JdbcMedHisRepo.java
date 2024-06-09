@@ -56,7 +56,7 @@ public class JdbcMedHisRepo implements MedHisRepository {
         //SQL Insert
         try {
             Statement stmt = con.createStatement();
-            String sql = "INSERT INTO medicalhistory (medHisId, date, description, petId, vetId) VALUES (" + medicalHistoryId + ",'" + date + "','" + description + "'," + petId + "," + vetId + ")";
+            String sql = "INSERT INTO medicalhistory (medicalHistoryId, date, description, petId, veterinarianId) VALUES (" + medicalHistoryId + ",'" + date + "','" + description + "'," + petId + "," + vetId + ")";
             stmt.executeUpdate(sql);
         } catch (Exception e) {
             System.out.println(e);

@@ -499,6 +499,42 @@ public class Menu {
         }
     }
 
+    public void appointmentViewVet(Appointment appointment) {
+        while (true) {
+            System.out.println("Appointment Menu!");
+            System.out.println("1: Appointment's Detail");
+            System.out.println("2: Cancel Appointment");
+            System.out.println("3: Complete Appointment");
+            System.out.println("4: Exit");
+
+            var value = console.readLine();
+            switch (value) {
+                case "1":
+                    System.out.println("Appointment Detail: ");
+                    System.out.println("Date: " + appointment.getDate());
+                    System.out.println("Vet ID: " + appointment.getVeterinarianId());
+                    System.out.println("Pet ID: " + appointment.getPetId());
+                    System.out.println("Description: " + appointment.getDescription());
+                    break;
+                case "2":
+                    clinicServices.deleteAppointment(appointment.getAppointmentId());
+                    System.out.println("Appointment Deleted!");
+                    return;
+                case "3":
+                    System.out.println("Enter Medical History Description: ");
+                    String desc = console.readLine();
+                    clinicServices.addMedicalHistory(appointment.getPetId(), appointment.getVeterinarianId(), appointment.getDate(), desc);
+                    System.out.println("Appointment Completed!");
+                    return;
+                case "4":
+                    System.out.println("Exit!");
+                    return;
+                default:
+                    System.out.println("Please Enter a Number");
+            }
+        }
+    }
+
     public void getAllAppointmentsOwner(int ownerId) {
         int index = 1;
         for (Appointment a : (Iterable<Appointment>) clinicServices.getAllAppointmentByOwner(ownerId)::iterator) {
@@ -549,7 +585,7 @@ public class Menu {
         if (value == 0) {
             return;
         } else if (value <= index) {
-            appointmentView(clinicServices.getAllAppointmentByVet(vetId).skip(value - 1).findFirst().get());
+            appointmentViewVet(clinicServices.getAllAppointmentByVet(vetId).skip(value - 1).findFirst().get());
         } else {
             System.out.println("There is no appointment with that number!");
             return;
